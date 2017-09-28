@@ -1,0 +1,41 @@
+Assume that randomGenerator.nextInt(Student.totalLectures) is able to return all 0-45 integers with equal probability.
+[Random variable] X_i=The number of lectures student i is present to
+p(X_i=x)=1/46 for x=0,1,2,3,,,,,45
+E[X_i]=22.5
+V[X_i]={(45-0+1)^2}/2=176.33
+
+[Random variable] classAttendance=The average attendence of the class
+classAttendance=(X_0+X_1+,,,+X_45)/61
+Central limit theorem gives,
+E[classAttendance]=22.5
+V[classAttendance]=176.33/root(61)=22.57
+
+[Random variable] percentileClassAttendance=(classAttendance/45) * 100%
+E[percentileClassAttendance]=50%
+V[percentileClassAttendance]={22.57/(45^2)} * 100% = 1.11%
+
+This does not mean that the average percenatge attendance will always be 50.
+Instead this says that the expected average of the value of a set of runs is 50.
+But the particulr run's value can be deviated.
+The variance is 1.11%
+(Again, this does not mean variations more than 1.11% cannot occur)
+
+But if we look into the implementation of the method nextInt() in java,
+	p(X_i=x)!=1/46
+nextInt(MAX) works as follows
+	do:
+		take 32 bits from  pseudo uniform distribution
+		convert it into an int
+	until you get a non negative integer.
+	return the mod(number,max)
+Since the positive integers possible out of 32 bits is not divisible by 46,
+there is a slight tendency for numbers in range 0 to mod(INT_MAX,46) to occur than other numbers.
+But this effect is negligible in a program for 61 random numbers. 
+
+The java implementation has a clever trick to overcome this problem as well,
+It keeps on choosing a new number as lonf as (number - val + (n-1) < 0) holds which
+strips off the part of the number line that is negative as well as the part which
+does not fall into a full modulo 46 segment.
+
+Therefore, assuming that the pseudo random bit sequence used in the first place is uniformly distributed,
+we ca say that the average class attendance falls at 50% with variance 1.11%
