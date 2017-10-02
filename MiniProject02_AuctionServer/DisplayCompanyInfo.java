@@ -25,7 +25,7 @@ public class DisplayCompanyInfo implements ActionListener {
         JFrame companyInfoFrame=new JFrame("Company Info");
         companyInfoFrame.setLayout(new FlowLayout());
         companyInfoFrame.add(companyInfoPanel);
-        companyInfoFrame.setDefaultCloseOperation(companyInfoFrame.DISPOSE_ON_CLOSE);
+        companyInfoFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         companyInfoFrame.setLocationRelativeTo(null);
         companyInfoFrame.pack();
         companyInfoFrame.setVisible(true);

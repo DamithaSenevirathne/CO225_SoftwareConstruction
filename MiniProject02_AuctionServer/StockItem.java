@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /*
 gihanchanaka@gmail.com
 E/14/158 CO225
@@ -13,6 +15,7 @@ public class StockItem {
     String financialStatus;
     String bidder;
     int roundLotSize;
+    ArrayList<String> log;
     float price;
 
 
@@ -26,15 +29,35 @@ public class StockItem {
         this.roundLotSize=roundLotSize;
         this.price=price;
         this.bidder="No bids yet";
+        this.log=new ArrayList<String>();
+        this.log.add("Initialized with value "+price);
     }
 
     public boolean bid(float newPrice,String clientName){
         if(newPrice>price){
             price=newPrice;
             bidder=clientName;
+            log.add(bidder+" bid for "+price+" and was successful!");
             return true;
         }
-        else return false;
+        else{
+            log.add(clientName+" bid for "+newPrice+" and was NOT successful!");
+            return false;
+        }
+    }
+
+    public boolean adminBid(float newPrice){
+
+        if(newPrice>price) {
+            price = newPrice;
+            Util.addToLatestBidQueue(this);
+            bidder = "Admin";
+            log.add(bidder + " bid for " + getPrice() + " and was successful!");
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
     public String getPrice(){
@@ -58,6 +81,6 @@ public class StockItem {
     }
 
     public String getBidder(){return this.bidder;}
-
+    public ArrayList<String> getLog(){return this.log;}
 
 }

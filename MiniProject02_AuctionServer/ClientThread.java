@@ -24,6 +24,12 @@ public class ClientThread implements Runnable {
 
     }
 
+    ClientThread(StockItem stockItem){
+        this.stockItem=stockItem;
+        this.symbol=stockItem.getSymbol();
+        this.clientName="Admin";
+    }
+
     public boolean authenticate(){
         try{
             clientName=in.readLine();
@@ -86,6 +92,8 @@ public class ClientThread implements Runnable {
 
         }
     }
+
+
 
     public void run(){
         if(authenticate()){

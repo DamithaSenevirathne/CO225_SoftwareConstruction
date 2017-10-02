@@ -14,6 +14,7 @@ public class Driver {
      */
     public static final int PORT = 2000;
     public static HashMap2 stockItems = new HashMap2();
+    public static ArrayList<String> symbolList=new ArrayList<>();
     public static CompanyListPanel topCompanies,newBids;
     public static ActionListener listUpdater = new ListUpdater();
     public static Timer timer = new Timer(500, listUpdater);
@@ -39,8 +40,10 @@ public class Driver {
         Util.takeInputs();
         timer.start();
         topCompanies = new CompanyListPanel(new Dimension(200, 500),"Top Companies");
-        newBids= new CompanyListPanel(new Dimension(200,150),"New bids");
+        newBids= new CompanyListPanel(new Dimension(200,500),"New bids");
         Util.show(topCompanies,newBids);
+
+
     }
 
     public static StockItem authenticate(String securityName){

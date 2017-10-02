@@ -9,6 +9,7 @@ public class CompanyInfoPanel extends JPanel{
     /*
         The panel to display the information about a single company once it's name is clicked
      */
+    static final long serialVersionUID = 1L; //Just to supress compiler warning
 
     CompanyInfoPanel(StockItem item){
         this.setLayout(new GridLayout(Driver.fields.length+1,2));
@@ -38,4 +39,6 @@ public class CompanyInfoPanel extends JPanel{
         value.setLocation(Driver.fields.length,1);
 
     }
+
+
 }

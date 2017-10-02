@@ -10,6 +10,8 @@ public class CompanyListPanel extends JPanel{
     /*
         A panel to display a set of companies (Their symbols and prices)
      */
+    static final long serialVersionUID = 1L; //Just to supress compiler warning
+
     static String[] prefferedCompanies={"FB", "VRTU","MSFT", "GOOGL", "YHOO", "XLNX", "TSLA" ,"TXN"};
     ArrayList<JButton> listOfCompanies;
 
@@ -37,7 +39,9 @@ public class CompanyListPanel extends JPanel{
     }
 
 
-
+    String serialVersionUID(){
+        return "";
+    }
 
 
 }

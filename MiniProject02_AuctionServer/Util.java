@@ -2,6 +2,7 @@
 gihanchanaka@gmail.com
 E/14/158 CO225
  */
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -65,6 +66,7 @@ public class Util {
                 int roundLotSize=Integer.parseInt(inLine[inLine.length-indexRoundLotSize]);
                 float price=Float.parseFloat(inLine[inLine.length-indexPrice]);
 
+                Driver.symbolList.add(symbol);
                 Driver.stockItems.put(new StockItem(symbol,name,marketCategory,testIssue,
                                                     financialStatus,roundLotSize,price));
 
@@ -82,20 +84,46 @@ public class Util {
 
     public static void show(CompanyListPanel list1,CompanyListPanel list2){
         JFrame frame=new JFrame("Stock Server");
-        frame.setLayout(new GridLayout(1,2));
 
-        frame.add(list1);
-        frame.add(list2);
+        GridBagLayout gbl=new GridBagLayout();
+        frame.setLayout(gbl);
 
-        frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
+        GridBagConstraints gbc=new GridBagConstraints();
+
+        gbc.gridx=0;
+        gbc.gridy=0;
+        frame.add(list1,gbc);
+
+        gbc.gridx=1;
+        gbc.gridy=0;
+        frame.add(list2,gbc);
+
+        gbc.gridx=0;
+        gbc.gridy=1;
+        JButton logs=new JButton("Cpanel: Logs/Change Prices");
+        //logs.setSize(200,20);
+        ShowCpanel sl=new ShowCpanel();
+        Driver.timer.addActionListener(sl);
+        logs.addActionListener(sl);
+        frame.add(logs,gbc);
+
+
+
+
+
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
         frame.pack();
         frame.setVisible(true);
+
+
+
+
     }
 
     public synchronized static void addToLatestBidQueue(StockItem item){
         if(!Driver.lastestBids.contains(item)) Driver.lastestBids.add(item);
-        while(Driver.lastestBids.size()>10)Driver.lastestBids.remove();
+        while(Driver.lastestBids.size()>8)Driver.lastestBids.remove();
     }
 
 }
