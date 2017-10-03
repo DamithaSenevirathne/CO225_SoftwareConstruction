@@ -30,34 +30,31 @@ public class StockItem {
         this.price=price;
         this.bidder="No bids yet";
         this.log=new ArrayList<String>();
-        this.log.add("Initialized with value "+price);
+        this.log.add("Initialized with value "+getPrice());
     }
 
     public boolean bid(float newPrice,String clientName){
         if(newPrice>price){
             price=newPrice;
             bidder=clientName;
-            log.add(bidder+" bid for "+price+" and was successful!");
+            log.add(bidder+" bid for "+getPrice()+" and was successful!");
             return true;
         }
         else{
-            log.add(clientName+" bid for "+newPrice+" and was NOT successful!");
+            log.add(clientName+" bid for "+String.format("%.02f", newPrice)+" and was NOT successful!");
             return false;
         }
     }
 
     public boolean adminBid(float newPrice){
 
-        if(newPrice>price) {
-            price = newPrice;
-            Util.addToLatestBidQueue(this);
-            bidder = "Admin";
-            log.add(bidder + " bid for " + getPrice() + " and was successful!");
-            return true;
-        }
-        else{
-            return false;
-        }
+
+        price = newPrice;
+        Util.addToLatestBidQueue(this);
+        bidder = "Admin";
+        log.add(bidder + " bid for " + getPrice() + " and was successful!");
+        return true;
+
     }
 
     public String getPrice(){

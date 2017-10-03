@@ -15,10 +15,10 @@ public class ShowCpanel implements ActionListener{
         This implements the CPANEL, which can show logs and change the prices as well
      */
     JList<String> list ;
-    private JTextField logText;
+    JTextArea logText;
     boolean readyToGo=false;
     JButton changePrince;
-    javax.swing.JTextArea newPrice;
+    JTextField newPrice;
     JPanel panel;
     JScrollPane scrollPane;
     public void actionPerformed(ActionEvent e){
@@ -38,13 +38,13 @@ public class ShowCpanel implements ActionListener{
             panel.add(scrollableList, 0);
 
 
-            logText = new JTextField("Select a company");
+            logText = new JTextArea("Select a company");
 
             panel.add(logText, 1);
 
             JPanel changeValue=new JPanel();
             changeValue.setLayout(new FlowLayout());
-            newPrice=new JTextArea("Enter the new price");
+            newPrice=new JTextField("Enter the new price");
 
             changeValue.add(newPrice);
             changePrince=new JButton("Change price");
@@ -65,12 +65,16 @@ public class ShowCpanel implements ActionListener{
                 if(si.adminBid(Float.parseFloat(newPrice.getText()))){
                     Util.prln("Changing price by admin command");
                 }
-                else{
-                    Util.prln("Bid higher!");
-                }
             }
             catch (Exception eeee){
-                //
+                JFrame errorMessage=new JFrame("Error!");
+                JTextField error=new JTextField("Enter a decimal number");
+                error.setEditable(false);
+                errorMessage.setSize(200,50);
+                errorMessage.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                errorMessage.setLayout(new FlowLayout());
+                errorMessage.add(error);
+                errorMessage.setVisible(true);
             }
 
 
@@ -87,6 +91,7 @@ public class ShowCpanel implements ActionListener{
                 logText.setLayout(new FlowLayout());
                 logText.setText(s);
                 logText.setEditable(false);
+                logText.setLineWrap(true);
 
             }
             catch(Exception ee){
